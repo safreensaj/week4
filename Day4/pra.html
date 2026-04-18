@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" id="searchbox">
+    <script>
+        let input=document.getElementById("searchbox")
+        function bounce(fn,delay){
+          let timer;
+          let isfirst=true;
+          return function(...args){
+            if(isfirst){
+             fn(...args);
+             isfirst=false;
+             return;
+            }
+            clearTimeout(timer);
+            timer=setTimeout(()=>{
+              fn(...args)
+            },delay)
+          }
+        }
+        function handlesearch(e){
+            console.log("searching...",e.target.value)
+        }
+        let searchbounce=bounce(handlesearch,1000);
+        input.addEventListener("input",searchbounce);
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="items">
+     <p>item1</p>
+      <p>item2</p>
+       <p>item3</p>
+    </div>
+       <script>
+        const mydiv=document.getElementById("items");
+        mydiv.addEventListener("click",function(e){
+            console.log("clicked:",e.target.textContent);
+        });
+        function throttle(){
+            let last=0;
+            return function(fn,delay){
+            let now=Date.now();
+             if(now-last>delay){
+                last=now;
+                fn();
+             }
+            }
+        }
+        window.addEventListener("scroll",throttle(()=>{
+          console.log("scroll...")
+        },2000))
+       </script>
+       <div id="parent">
+        <button>btn1</button>
+        <button>btn2</button>
+        <button>btn3</button>
+       </div>
+       <script>
+        const mybtn=document.getElementById("parent");
+        mybtn.addEventListener("click",function(e){
+            console.log("clicked..",e.target.textContent)
+        })
+        function throttle(fn,delay){
+            let last=0;
+            return function(){
+             let now=Date.now();
+             if(now-last>delay){
+                last=now;
+                fn();
+             }
+            }
+        }
+        window.addEventListener("scroll",throttle(()=>{
+            console.log("scroll...")
+        },1000))
+       </script>
+       <div id="mdiv">
+        <button>btn1</button>
+        <button>btn2</button>
+        <button>btn3</button>
+       </div>
+       <script>
+        const mdiv=document.getElementById("mdiv");
+        mdiv.addEventListener("click",function(e){
+            console.log("clicked",e.target.textContent);
+        })
+        function throttle(fn,delay){
+           let last=0;
+           return function(){
+            let now=Date.now();
+            if(now-last>delay){
+                last=now;
+                fn();
+            }
+           }
+        }
+        window.addEventListener("scroll",throttle(()=>{
+            console.log("scrolling...")
+        },1000));
+       </script>
+
+</body>
+</html>

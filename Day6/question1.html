@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+     <input type="number" id="input" placeholder="Enter seconds...">
+    <h1 id="display">Timer will appear here</h1>
+    <script>
+let input = document.getElementById("input");
+let display = document.getElementById("display");
+let timer;
+
+function startCountDown(value){
+    clearTimeout(timer);
+
+    if(value <= 0 || isNaN(value)){
+        display.innerText = "Enter valid number";
+        return;
+    }
+
+    let time = value;
+
+    function run(){
+        if(time >= 0){
+            display.innerText = time;
+            time--;
+            timer = setTimeout(run, 1000);
+        } else {
+            display.innerText = "Time's up!";
+        }
+    }
+
+    run();
+}
+
+function debounce(fn, delay){
+    let t;
+    return function(...args){
+        clearTimeout(t);
+        t = setTimeout(() => fn(...args), delay);
+    }
+}
+
+let searchDebounce = debounce((e)=>{
+    startCountDown(Number(e.target.value));
+}, 2000);
+
+input.addEventListener("input", searchDebounce);
+</script>
+</body>
+</html>
+

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>show input</h1>
+    <input type="text" id="input" placeholder="search here">
+    <button onclick="searchInput()">search</button>
+    <ul id="display"></ul>
+    <script>
+        async function searchInput() {
+            const name=document.getElementById("input").value;
+                const displayList=document.getElementById("display");
+                displayList.innerHTML=""
+            try{
+                const res= await fetch(`https://jsonplaceholder.typicode.com/users?name=${name}`)
+                const data =await res.json()
+
+                if(data.length==0){
+                    displayList.innerHTML="<li>No user found</li>"
+                    return
+
+
+                }
+                data.forEach(user => {
+                    const li=document.createElement("li")
+                    li.textContent=user.name
+                    displayList.appendChild(li)
+                });
+
+            }catch(er){
+                displayList.innerHTML="<li>error</li>"
+            }
+        }
+    </script>
+</body>
+</html>

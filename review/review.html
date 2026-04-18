@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input id="input" type="text" placeholder="search...">
+    <div id="display"></div>
+    <script>
+        async function fetchData(){
+            let result=await fetch("https://jsonplaceholder.typicode.com/posts?title_like=<")
+               let data=await result.json();
+               console.log(data);
+        }
+    
+        const input=document.getElementById("input");
+        const display=document.getElementById("display");
+        function debouce(fn,delay){
+           let timer;
+           return function(...args){
+            clearTimeout(timer)
+            timer=setTimeout(()=>{
+                fn(...args)
+            },delay)
+           }
+        };
+        let search=debouce((e)=>{
+        console.log("searching...",e.target.value)
+        fetchData(e.target.value);
+        },1000);
+        
+        input.addEventListener("input",search);
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" placeholder="search..." id="searchbox">
+    <script>
+        const input=document.getElementById("searchbox");
+        function debounce(fn,delay){
+            let timer;
+
+           return function(...arg){
+             clearTimeout(timer)
+            timer=setTimeout(()=>{
+                fn(...arg)
+            },delay)
+
+           }
+        }
+        function handlesearch(e){
+          console.log("API call for: " ,e.target.value);
+        }
+        const debouncedsearch=debounce(handlesearch,2000)
+        input.addEventListener("input",debouncedsearch)
+    </script>
+</body>
+</html>
+
